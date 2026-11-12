@@ -1,99 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CineAI Studio - Create cinematic videos with AI.">
-  <title>CineAI Studio — AI Video Creator</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,Arial,sans-serif;background:#090b12;color:#f7f7fb;min-height:100vh}
-    header{height:72px;border-bottom:1px solid #242633;display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;background:#090b12;z-index:2}
-    .logo{font-size:21px;font-weight:800;letter-spacing:-1px}.logo span{color:#9b7bff}
-    nav{display:flex;gap:24px;color:#aaa;font-size:14px}
-    nav a{color:inherit;text-decoration:none}
-    .hero{text-align:center;padding:65px 20px 35px}
-    .tag{display:inline-block;border:1px solid #40336c;background:#19132c;color:#c8b8ff;padding:8px 14px;border-radius:30px;font-size:12px}
-    h1{font-size:clamp(36px,6vw,64px);line-height:1.08;letter-spacing:-2px;margin:22px 0 15px}
-    h1 span{background:linear-gradient(90deg,#a98aff,#60d9e9);background-clip:text;color:transparent}
-    .hero p{color:#a4a6b4;max-width:570px;margin:auto;line-height:1.7}
-    main{width:min(950px,92%);margin:25px auto 80px}
-    .panel{background:#11141e;border:1px solid #292c3b;border-radius:18px;padding:24px}
-    .tabs{display:flex;gap:10px;margin-bottom:24px}
-    .tab{background:#1a1d2a;color:#aaa;border:1px solid #303346;padding:12px 18px;border-radius:10px;cursor:pointer}
-    .tab.active{background:#32265b;border-color:#8e6cff;color:white}
-    label{display:block;font-size:14px;margin:18px 0 9px;color:#dedee8}
-    textarea,input{width:100%;background:#0b0e17;border:1px solid #303346;border-radius:10px;padding:14px;color:white;font:inherit;outline:none}
-    textarea{min-height:125px;resize:vertical}
-    input[type=file]{font-size:13px}
-    .hint{font-size:12px;color:#888;margin-top:8px}
-    .generate{width:100%;border:0;border-radius:11px;padding:16px;margin-top:22px;background:linear-gradient(90deg,#7956e9,#497ce8);color:white;font-weight:700;font-size:15px;cursor:pointer}
-    .generate:hover{opacity:.9}
-    .preview{margin-top:22px;border:1px dashed #45485b;border-radius:14px;min-height:220px;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px;color:#9699aa;background:#0c0f18}
-    .preview strong{display:block;color:#eee;margin-bottom:8px}
-    .notice{font-size:12px;color:#a9a0c8;text-align:center;margin-top:14px;line-height:1.6}
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-    .feature{background:#11141e;border:1px solid #292c3b;border-radius:13px;padding:18px}
-    .feature b{display:block;margin:8px 0}.feature p{font-size:13px;color:#999;line-height:1.5}
-    footer{text-align:center;padding:30px;color:#777;border-top:1px solid #242633;font-size:13px}
-    @media(max-width:600px){nav{gap:12px;font-size:12px}.hero{padding-top:48px}.panel{padding:17px}.features{grid-template-columns:1fr}.tabs{flex-wrap:wrap}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CineAI Studio — Text to Video and Image to Video</title>
+<meta name="description" content="CineAI Studio is a cinematic AI video workspace. Plan text-to-video and image-to-video ideas. Currently in demo mode while a video model is connected.">
+<meta name="theme-color" content="#07060c">
+<meta property="og:title" content="CineAI Studio">
+<meta property="og:description" content="Cinematic AI video workspace — text to video and image to video.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238b5cf6'/%3E%3Cpath d='M12 9l11 7-11 7z' fill='white'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <div class="logo">CineAI<span> Studio</span></div>
-    <nav><a href="#creator">Create</a><a href="#features">Features</a></nav>
-  </header>
-  <section class="hero">
-    <div class="tag">✦ YOUR CREATIVE AI WORKSPACE</div>
-    <h1>Turn your ideas into<br><span>cinematic videos.</span></h1>
-    <p>Bring your imagination to life. Start with a text prompt or an image and explore the future of AI video creation.</p>
-  </section>
-  <main id="creator">
-    <section class="panel">
-      <div class="tabs">
-        <button class="tab active" id="textTab" onclick="showMode('text')">✦ Text to Video</button>
-        <button class="tab" id="imageTab" onclick="showMode('image')">▧ Image to Video</button>
+<a class="skip" href="#creator">Skip to generator</a>
+<header class="top">
+  <a class="brand" href="#home"><span class="logo" aria-hidden="true"></span>CineAI Studio</a>
+  <button class="menu-btn" aria-expanded="false" aria-controls="nav" aria-label="Open menu">Menu</button>
+  <nav id="nav" aria-label="Main">
+    <a href="#home">Home</a><a href="#explore">Explore</a><a href="#creator">AI Video Generator</a>
+    <a href="#creations">My Creations</a><a href="#pricing">Pricing</a><a href="#help">Help Center</a>
+  </nav>
+</header>
+
+<main>
+<section id="home" class="hero wrap">
+  <div class="hero-text">
+    <p class="chip-demo">Demo mode — no video model connected yet</p>
+    <h1>Welcome. Your next scene starts with one sentence.</h1>
+    <p class="lead">Write a prompt or drop in a still image, set the shot, and plan your video. Real generation switches on when a model is connected.</p>
+    <div class="actions">
+      <a class="btn primary" href="#creator" data-open-mode="text">Start with text</a>
+      <a class="btn" href="#creator" data-open-mode="image">Start with an image</a>
+    </div>
+  </div>
+  <div class="frame" aria-hidden="true">
+    <i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i>
+    <span class="tc">00:00:05:00</span><span class="rec">Preview slot</span>
+  </div>
+</section>
+
+<section class="wrap cards2" aria-label="Create">
+  <a class="card big" href="#creator" data-open-mode="text"><h2>Text to Video</h2><p>Describe a scene, pick duration, ratio and motion.</p></a>
+  <a class="card big" href="#creator" data-open-mode="image"><h2>Image to Video</h2><p>Upload a still and describe how it should move.</p></a>
+</section>
+
+<section id="creator" class="wrap">
+  <h2 class="sh">AI Video Generator</h2>
+  <div class="gen">
+    <div class="panel">
+      <div class="tabs" role="tablist" aria-label="Generation mode">
+        <button role="tab" id="tab-text" aria-controls="form-text" aria-selected="true">Text to Video</button>
+        <button role="tab" id="tab-image" aria-controls="form-image" aria-selected="false" tabindex="-1">Image to Video</button>
       </div>
-      <div id="textMode">
-        <label for="prompt">Describe the video you want to create</label>
-        <textarea id="prompt" placeholder="Example: A cinematic aerial shot of a futuristic African city at sunset, golden light, realistic details..."></textarea>
+
+      <form id="form-text" role="tabpanel" aria-labelledby="tab-text" novalidate>
+        <label class="lbl" for="prompt">Prompt</label>
+        <textarea id="prompt" rows="4" maxlength="600" placeholder="A lighthouse on a cliff at dusk, waves crashing, slow aerial push-in"></textarea>
+        <div class="chips" id="examples" aria-label="Example prompts"></div>
+        <label class="lbl" for="neg">Negative prompt <span class="opt">optional</span></label>
+        <input id="neg" type="text" maxlength="200" placeholder="blurry, text overlays, distorted faces">
+        <div class="opts">
+          <div class="field"><span class="lbl">Duration</span><div data-seg="duration"></div></div>
+          <div class="field"><span class="lbl">Aspect ratio</span><div data-seg="ratio"></div></div>
+          <div class="field"><span class="lbl">Quality</span><div data-seg="quality"></div></div>
+          <div class="field"><span class="lbl">Motion intensity</span><div data-seg="motion"></div></div>
+        </div>
+        <button class="btn primary full" type="submit">Generate video (demo)</button>
+      </form>
+
+      <form id="form-image" role="tabpanel" aria-labelledby="tab-image" hidden novalidate>
+        <span class="lbl">Source image</span>
+        <label class="drop" id="drop">
+          <input id="file" type="file" accept="image/png,image/jpeg,image/webp">
+          <img id="thumb" alt="Selected image preview" hidden>
+          <span id="drop-text">Tap to choose an image, or drag one here<br><small>PNG, JPG or WebP, up to 10 MB</small></span>
+        </label>
+        <label class="lbl" for="motion-text">Motion description</label>
+        <textarea id="motion-text" rows="3" maxlength="400" placeholder="Camera slowly pushes in while clouds drift behind the subject"></textarea>
+        <div class="opts">
+          <div class="field"><span class="lbl">Duration</span><div data-seg="duration"></div></div>
+          <div class="field"><span class="lbl">Aspect ratio</span><div data-seg="ratio"></div></div>
+        </div>
+        <button class="btn primary full" type="submit">Generate video (demo)</button>
+      </form>
+      <p class="err" id="err" role="alert" hidden></p>
+    </div>
+
+    <div class="panel preview" aria-live="polite">
+      <h3>Preview</h3>
+      <div class="stage" id="stage">
+        <video id="video" playsinline preload="none" hidden></video>
+        <p id="stage-msg">Your video will appear here once a model is connected.</p>
       </div>
-      <div id="imageMode" hidden>
-        <label for="imageInput">Upload your starting image</label>
-        <input id="imageInput" type="file" accept="image/*">
-        <p class="hint">Choose a JPG, PNG or WebP image.</p>
-        <label for="imagePrompt">Describe how the image should move</label>
-        <textarea id="imagePrompt" placeholder="Example: Slowly move the camera forward while the character turns toward the sunset..."></textarea>
+      <p class="info" id="info">No generation yet.</p>
+      <div class="actions">
+        <button class="btn" id="play" type="button" disabled>Play</button>
+        <a class="btn" id="dl" aria-disabled="true" tabindex="-1" download>Download</a>
+        <button class="btn" id="regen" type="button" disabled>Regenerate</button>
       </div>
-      <button class="generate" onclick="generateDemo()">✦ Generate video</button>
-      <p class="notice">Demo interface only — real AI video generation is not connected yet.</p>
-      <div class="preview" id="preview"><div><strong>▣ Your video preview will appear here</strong>Describe an idea or upload an image to get started.</div></div>
-    </section>
-    <section class="features" id="features">
-      <div class="feature"><span>✦</span><b>Text to Video</b><p>Turn written ideas into visual stories.</p></div>
-      <div class="feature"><span>▧</span><b>Image to Video</b><p>Bring still images to life with motion.</p></div>
-      <div class="feature"><span>⬇</span><b>Video Downloads</b><p>Save your generated creations when generation is connected.</p></div>
-    </section>
-  </main>
-  <footer>© 2026 CineAI Studio. Made for creative minds.</footer>
-  <script>
-    let mode='text';
-    function showMode(next){
-      mode=next;
-      document.getElementById('textMode').hidden=next!=='text';
-      document.getElementById('imageMode').hidden=next!=='image';
-      document.getElementById('textTab').classList.toggle('active',next==='text');
-      document.getElementById('imageTab').classList.toggle('active',next==='image');
-    }
-    function generateDemo(){
-      const prompt=mode==='text'?document.getElementById('prompt').value.trim():document.getElementById('imagePrompt').value.trim();
-      const file=document.getElementById('imageInput').files[0];
-      if(mode==='text'&&!prompt){alert('Please describe your video idea first.');return;}
-      if(mode==='image'&&!file){alert('Please upload an image first.');return;}
-      if(mode==='image'&&!prompt){alert('Please describe the motion you want.');return;}
-      document.getElementById('preview').innerHTML='<div><strong>Demo mode is active</strong>Your request has been prepared, but a real AI video engine must be connected before a video can be generated or downloaded.</div>';
-    }
-  </script>
+      <p class="note">Download is enabled only when a real video file exists.</p>
+    </div>
+  </div>
+  <!-- AdSense: place approved units only outside .gen, e.g. here. Do not add ads inside the generator controls. -->
+  <aside class="ad-slot" id="ad-1" aria-label="Advertisement" hidden></aside>
+</section>
+
+<section id="explore" class="wrap">
+  <h2 class="sh">Explore</h2>
+  <p class="sub">Concept cards are ready for real clips. Add a video file to js/gallery.js and it becomes playable.</p>
+  <div class="chips" id="filters" role="group" aria-label="Filter by category"></div>
+  <div class="grid" id="gallery"></div>
+</section>
+
+<section id="creations" class="wrap">
+  <div class="row"><h2 class="sh">My Creations</h2><button class="btn small" id="clear" type="button">Clear list</button></div>
+  <p class="sub">Your recent prompts are saved on this device only. No account needed.</p>
+  <ul class="recent" id="recent"></ul>
+</section>
+
+<section id="pricing" class="wrap">
+  <h2 class="sh">Pricing</h2>
+  <div class="cards2">
+    <div class="card"><h3>Free demo</h3><p>Plan prompts, test the interface and save drafts. No sign-up, no payment.</p></div>
+    <div class="card"><h3>Paid plans</h3><p>Not available yet. They are announced only after real generation is connected.</p></div>
+  </div>
+</section>
+
+<section id="help" class="wrap">
+  <h2 class="sh">Help Center</h2>
+  <details><summary>Why can't I download a video?</summary><p>Generation is in demo mode, so no video file is created. Download unlocks only when a real file is returned.</p></details>
+  <details><summary>What makes a good prompt?</summary><p>Name the subject, the setting, the light and the camera move. Example: "Rain on a neon street, low tracking shot, shallow focus."</p></details>
+  <details><summary>Where are my creations stored?</summary><p>In your browser on this device. Clearing browser data removes them.</p></details>
+  <details><summary>Which images work best?</summary><p>Sharp PNG, JPG or WebP images with a clear subject, up to 10 MB.</p></details>
+  <aside class="ad-slot" id="ad-2" aria-label="Advertisement" hidden></aside>
+</section>
+</main>
+
+<footer class="wrap foot">© 2026 CineAI Studio. Demo mode: no AI model is connected.</footer>
+<script src="js/gallery.js" defer></script>
+<script src="js/generator.js" defer></script>
+<script src="js/app.js" defer></script>
 </body>
 </html>
