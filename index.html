@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CineAI Studio - Create cinematic videos with AI.">
+  <title>CineAI Studio — AI Video Creator</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,Arial,sans-serif;background:#090b12;color:#f7f7fb;min-height:100vh}
+    header{height:72px;border-bottom:1px solid #242633;display:flex;align-items:center;justify-content:space-between;padding:0 6%;position:sticky;top:0;background:#090b12;z-index:2}
+    .logo{font-size:21px;font-weight:800;letter-spacing:-1px}.logo span{color:#9b7bff}
+    nav{display:flex;gap:24px;color:#aaa;font-size:14px}
+    nav a{color:inherit;text-decoration:none}
+    .hero{text-align:center;padding:65px 20px 35px}
+    .tag{display:inline-block;border:1px solid #40336c;background:#19132c;color:#c8b8ff;padding:8px 14px;border-radius:30px;font-size:12px}
+    h1{font-size:clamp(36px,6vw,64px);line-height:1.08;letter-spacing:-2px;margin:22px 0 15px}
+    h1 span{background:linear-gradient(90deg,#a98aff,#60d9e9);background-clip:text;color:transparent}
+    .hero p{color:#a4a6b4;max-width:570px;margin:auto;line-height:1.7}
+    main{width:min(950px,92%);margin:25px auto 80px}
+    .panel{background:#11141e;border:1px solid #292c3b;border-radius:18px;padding:24px}
+    .tabs{display:flex;gap:10px;margin-bottom:24px}
+    .tab{background:#1a1d2a;color:#aaa;border:1px solid #303346;padding:12px 18px;border-radius:10px;cursor:pointer}
+    .tab.active{background:#32265b;border-color:#8e6cff;color:white}
+    label{display:block;font-size:14px;margin:18px 0 9px;color:#dedee8}
+    textarea,input{width:100%;background:#0b0e17;border:1px solid #303346;border-radius:10px;padding:14px;color:white;font:inherit;outline:none}
+    textarea{min-height:125px;resize:vertical}
+    input[type=file]{font-size:13px}
+    .hint{font-size:12px;color:#888;margin-top:8px}
+    .generate{width:100%;border:0;border-radius:11px;padding:16px;margin-top:22px;background:linear-gradient(90deg,#7956e9,#497ce8);color:white;font-weight:700;font-size:15px;cursor:pointer}
+    .generate:hover{opacity:.9}
+    .preview{margin-top:22px;border:1px dashed #45485b;border-radius:14px;min-height:220px;display:flex;align-items:center;justify-content:center;text-align:center;padding:25px;color:#9699aa;background:#0c0f18}
+    .preview strong{display:block;color:#eee;margin-bottom:8px}
+    .notice{font-size:12px;color:#a9a0c8;text-align:center;margin-top:14px;line-height:1.6}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+    .feature{background:#11141e;border:1px solid #292c3b;border-radius:13px;padding:18px}
+    .feature b{display:block;margin:8px 0}.feature p{font-size:13px;color:#999;line-height:1.5}
+    footer{text-align:center;padding:30px;color:#777;border-top:1px solid #242633;font-size:13px}
+    @media(max-width:600px){nav{gap:12px;font-size:12px}.hero{padding-top:48px}.panel{padding:17px}.features{grid-template-columns:1fr}.tabs{flex-wrap:wrap}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">CineAI<span> Studio</span></div>
+    <nav><a href="#creator">Create</a><a href="#features">Features</a></nav>
+  </header>
+  <section class="hero">
+    <div class="tag">✦ YOUR CREATIVE AI WORKSPACE</div>
+    <h1>Turn your ideas into<br><span>cinematic videos.</span></h1>
+    <p>Bring your imagination to life. Start with a text prompt or an image and explore the future of AI video creation.</p>
+  </section>
+  <main id="creator">
+    <section class="panel">
+      <div class="tabs">
+        <button class="tab active" id="textTab" onclick="showMode('text')">✦ Text to Video</button>
+        <button class="tab" id="imageTab" onclick="showMode('image')">▧ Image to Video</button>
+      </div>
+      <div id="textMode">
+        <label for="prompt">Describe the video you want to create</label>
+        <textarea id="prompt" placeholder="Example: A cinematic aerial shot of a futuristic African city at sunset, golden light, realistic details..."></textarea>
+      </div>
+      <div id="imageMode" hidden>
+        <label for="imageInput">Upload your starting image</label>
+        <input id="imageInput" type="file" accept="image/*">
+        <p class="hint">Choose a JPG, PNG or WebP image.</p>
+        <label for="imagePrompt">Describe how the image should move</label>
+        <textarea id="imagePrompt" placeholder="Example: Slowly move the camera forward while the character turns toward the sunset..."></textarea>
+      </div>
+      <button class="generate" onclick="generateDemo()">✦ Generate video</button>
+      <p class="notice">Demo interface only — real AI video generation is not connected yet.</p>
+      <div class="preview" id="preview"><div><strong>▣ Your video preview will appear here</strong>Describe an idea or upload an image to get started.</div></div>
+    </section>
+    <section class="features" id="features">
+      <div class="feature"><span>✦</span><b>Text to Video</b><p>Turn written ideas into visual stories.</p></div>
+      <div class="feature"><span>▧</span><b>Image to Video</b><p>Bring still images to life with motion.</p></div>
+      <div class="feature"><span>⬇</span><b>Video Downloads</b><p>Save your generated creations when generation is connected.</p></div>
+    </section>
+  </main>
+  <footer>© 2026 CineAI Studio. Made for creative minds.</footer>
+  <script>
+    let mode='text';
+    function showMode(next){
+      mode=next;
+      document.getElementById('textMode').hidden=next!=='text';
+      document.getElementById('imageMode').hidden=next!=='image';
+      document.getElementById('textTab').classList.toggle('active',next==='text');
+      document.getElementById('imageTab').classList.toggle('active',next==='image');
+    }
+    function generateDemo(){
+      const prompt=mode==='text'?document.getElementById('prompt').value.trim():document.getElementById('imagePrompt').value.trim();
+      const file=document.getElementById('imageInput').files[0];
+      if(mode==='text'&&!prompt){alert('Please describe your video idea first.');return;}
+      if(mode==='image'&&!file){alert('Please upload an image first.');return;}
+      if(mode==='image'&&!prompt){alert('Please describe the motion you want.');return;}
+      document.getElementById('preview').innerHTML='<div><strong>Demo mode is active</strong>Your request has been prepared, but a real AI video engine must be connected before a video can be generated or downloaded.</div>';
+    }
+  </script>
+</body>
+</html>
